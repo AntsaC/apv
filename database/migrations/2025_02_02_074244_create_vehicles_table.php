@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('model')->nullable();
             $table->string('version')->nullable();
             $table->string('vin')->unique();
-            $table->string('immatriculation')->unique();
+            $table->string('immatriculation')->nullable()->unique();
             $table->integer('kilometrage')->nullable();
-            $table->enum('energy', [EnergyType::DIESEL->value, EnergyType::HYBRIDE->value, EnergyType::FUEL->value, EnergyType::PLUGIN->value])->nullable();
+            $table->enum('energy', [EnergyType::DIESEL->value, EnergyType::HYBRIDE->value, EnergyType::FUEL->value, EnergyType::PLUGIN->value, EnergyType::ELECTRIC->value])->nullable();
             $table->enum('saleType', ['VN', 'VO'])->nullable();
             $table->string('invoiceComment')->nullable();
             $table->string('saleFileNumber')->nullable();
