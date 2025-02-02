@@ -1,4 +1,4 @@
-@props(['columns' => [], 'data' => []])
+@props(['columns' => [], 'data' => [], 'model'])
 
 <div class="mt-5 overflow-x-auto bg-white shadow-lg rounded-lg p-4">
     <table class="min-w-full divide-y divide-gray-200">
@@ -31,12 +31,16 @@
                         @endforeach
 
                         <td>
-                            <a href="{{ route('admin.customers.edit', $row->id) }}">
+                            <a href="{{ route('admin.' . $model . '.edit', $row->id) }}">
                                 <i class="fas fa-edit"></i> Modifier
                             </a>
-                            <a href="">
-                                <i class="fas fa-trash"></i> Supprimer
-                            </a>
+                            <form action="{{ route('admin.' . $model . '.destroy', $row->id) }}" method="POST" class="inline-block ml-2">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:text-red-800 focus:outline-none">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

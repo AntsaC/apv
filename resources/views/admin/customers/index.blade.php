@@ -19,7 +19,7 @@
                 'businessAccount.label' => 'Compte entreprise',
                 'eventAccount.label' => 'Compte événement',
                 'lastEventAccount.label' => 'Dernier compte événement',
-            ]" :data="$customers" />
+            ]" :data="$customers" :model="'customers'" />
         </div>
     </div>
 </x-app-layout>
