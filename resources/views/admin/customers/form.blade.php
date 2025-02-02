@@ -1,13 +1,9 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Customers') }}
-        </h2>
+<x-admin.layout>
+    <x-slot name="title">
+        {{ $customer->id ? 'Modifier le client' : 'Ajouter un Client'}}
     </x-slot>
 
     <div class="max-w-3xl mx-auto mt-10">
-        <h2 class="text-2xl font-semibold text-gray-800">Ajouter un Client</h2>
-
         <form action="{{ $customer->id ? route('admin.customers.update', $customer->id) : route('admin.customers.store') }}" method="POST" class="space-y-6 mt-6">
             @if ($customer->id)
                 @method('PUT')
@@ -167,4 +163,4 @@
             </div>
         </form>
     </div>
-</x-app-layout>
+</x-admin.layout>
