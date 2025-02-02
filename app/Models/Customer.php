@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -37,4 +38,17 @@ class Customer extends Model
     public function lastEventAccount() : BelongsTo {
         return $this->belongsTo(Account::class);
     }
+
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class);
+    }
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => ($this->civility . ' ' . $this->firstName . ' ' . $this->lastName),
+        );
+    }
+
 }

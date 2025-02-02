@@ -54,7 +54,8 @@ class CustomerController extends Controller
             'type' => 'required|string',
             'business_account_id' => 'nullable|exists:accounts,id',
             'event_account_id' => 'nullable|exists:accounts,id',
-            'last_event_account_id' => 'nullable|exists:accounts,id'
+            'last_event_account_id' => 'nullable|exists:accounts,id',
+            'customer_id'   => 'nullable|exists:customers,id'
         ]);
     
         Customer::create($validatedData);
@@ -105,6 +106,7 @@ class CustomerController extends Controller
             'business_account_id' => 'nullable|exists:accounts,id',
             'event_account_id' => 'nullable|exists:accounts,id',
             'last_event_account_id' => 'nullable|exists:accounts,id',
+            'customer_id'   => 'nullable|exists:customers,id'
         ]);
 
         $customer = Customer::findOrFail($id);
@@ -125,5 +127,14 @@ class CustomerController extends Controller
         $customer->delete();
 
         return redirect()->route('admin.customers.index')->with('success', 'Customer deleted successfully.');
+    }
+
+    public function vehicles(string $id)
+    {
+        $customer = Customer::findOrFail($id);
+
+        return view('admin.customers.vehicles', [
+            'customer' => $customer
+        ]);
     }
 }

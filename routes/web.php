@@ -19,6 +19,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::resource('vehicles', VehicleController::class);
 
+    Route::get('customers/{id}/vehicles', [CustomerController::class, 'vehicles'])->name('customers.vehicles');
+
 })->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {

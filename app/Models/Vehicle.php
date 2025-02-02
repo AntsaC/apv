@@ -25,7 +25,8 @@ class Vehicle extends Model
         'invoiceComment',
         'vn_seller_id',
         'vo_seller_id',
-        'intermediate_seller_id'
+        'intermediate_seller_id',
+        'customer_id'
     ];
 
     public function vnSeller() : BelongsTo {
@@ -38,6 +39,11 @@ class Vehicle extends Model
 
     public function intermediateSeller() : BelongsTo {
         return $this->belongsTo(Seller::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 
 }

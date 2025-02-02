@@ -15,7 +15,7 @@
             'kilometrage' => 'Kilometrage',
             'lastEventDate' => 'Dernier évènement',
             'eventOrigin' => 'Origine',
-            'customer'  => 'Client'
+            'customer.full_name'  => 'Client'
         ]" :data="$vehicles" :model="'vehicles'" />
     </div>
 </x-admin.layout>
