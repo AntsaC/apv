@@ -32,6 +32,9 @@
             <main>
                 {{ $slot }}
             </main>
+
+            <x-alert />
+            
         </div>
     </body>
 </html>
