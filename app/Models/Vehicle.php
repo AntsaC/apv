@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Vehicle extends Model
 {
@@ -21,6 +22,22 @@ class Vehicle extends Model
         'saleFileNumber',
         'eventDate',
         'eventOrigin',
-        'invoiceComment'
+        'invoiceComment',
+        'vn_seller_id',
+        'vo_seller_id',
+        'intermediate_seller_id'
     ];
+
+    public function vnSeller() : BelongsTo {
+        return $this->belongsTo(Seller::class);
+    }
+
+    public function voSeller() : BelongsTo {
+        return $this->belongsTo(Seller::class);
+    }
+
+    public function intermediateSeller() : BelongsTo {
+        return $this->belongsTo(Seller::class);
+    }
+
 }
