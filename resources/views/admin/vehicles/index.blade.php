@@ -15,7 +15,6 @@
             'model' => 'Modèle',
             'kilometrage' => 'Kilometrage',
             'lastEventDate' => 'Dernier évènement',
-            'eventOrigin' => 'Origine',
             'customer.full_name'  => 'Client'
         ]" :data="$vehicles" :model="'vehicles'" />
     </div>
