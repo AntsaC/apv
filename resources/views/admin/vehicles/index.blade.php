@@ -6,6 +6,7 @@
     <div>
         <div class="d-flex">
             <x-button :href="route('admin.vehicles.create')" :type="'link'" >Nouveau</x-button>
+            <x-button :href="route('admin.vehicles.import')" :type="'link'" >Importer</x-button>
         </div>
         <x-table :columns="[
             'vin' => 'VIN',

@@ -128,6 +128,11 @@ class VehicleController extends Controller
         return redirect()->route('admin.vehicles.index')->with('success', 'Le véhicules a été supprimé');
     }
 
+    public function showImportForm()
+    {
+        return view('admin.vehicles.import');
+    }
+
     public function import(Request $request)
     {
         // Validate the uploaded file
