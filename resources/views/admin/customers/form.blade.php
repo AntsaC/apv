@@ -134,6 +134,32 @@
                 @enderror
             </div>
 
+            <div>
+                <label for="event_account_id" class="block text-sm font-medium text-gray-700">Compte d'évènement</label>
+                <select id="event_account_id" name="event_account_id" class="mt-1 block w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">Aucun</option>
+                    @foreach($accounts as $account)
+                        <option value="{{ $account->id }}" {{ old('event_account_id', $customer->eventAccount ? $customer->eventAccount->id : '') == $account->id ? 'selected' : '' }}>{{ $account->label }}</option>
+                    @endforeach
+                </select>
+                @error('event_account_id')
+                    <p class="text-red-500 text-sm">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <div>
+                <label for="last_event_account_id" class="block text-sm font-medium text-gray-700">Dernier compte d'évènement</label>
+                <select id="last_event_account_id" name="last_event_account_id" class="mt-1 block w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">Aucun</option>
+                    @foreach($accounts as $account)
+                        <option value="{{ $account->id }}" {{ old('last_event_account_id', $customer->lastEventAccount ? $customer->lastEventAccount->id : '') == $account->id ? 'selected' : '' }}>{{ $account->label }}</option>
+                    @endforeach
+                </select>
+                @error('last_event_account_id')
+                    <p class="text-red-500 text-sm">{{ $message }}</p>
+                @enderror
+            </div>
+
             <div class="pt-6">
                 <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                     {{ $customer->id ? 'Modifier le client' : 'Ajouter le Client' }}

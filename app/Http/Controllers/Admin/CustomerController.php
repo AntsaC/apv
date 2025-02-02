@@ -53,6 +53,8 @@ class CustomerController extends Controller
             'email' => 'email|unique:customers',
             'type' => 'required|string',
             'business_account_id' => 'nullable|exists:accounts,id',
+            'event_account_id' => 'nullable|exists:accounts,id',
+            'last_event_account_id' => 'nullable|exists:accounts,id'
         ]);
     
         Customer::create($validatedData);
@@ -101,6 +103,8 @@ class CustomerController extends Controller
             'email' => 'email',
             'type' => 'required|string',
             'business_account_id' => 'nullable|exists:accounts,id',
+            'event_account_id' => 'nullable|exists:accounts,id',
+            'last_event_account_id' => 'nullable|exists:accounts,id',
         ]);
 
         $customer = Customer::findOrFail($id);
