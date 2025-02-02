@@ -25,6 +25,7 @@ class Customer extends Model
         'event_account_id',
         'last_event_account_id',
         'created_at',
+        'postalCode'
     ];
 
     public function businessAccount() : BelongsTo {
