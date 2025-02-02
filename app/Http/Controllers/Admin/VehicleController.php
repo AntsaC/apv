@@ -55,7 +55,7 @@ class VehicleController extends Controller
             'energy' => 'nullable|string',
             'saleType' => 'nullable|string',
             'saleFileNumber' => 'nullable|string|max:255',
-            'saleOrigin' => 'nullable|string',
+            'eventOrigin' => 'nullable|string',
             'vn_seller_id' => 'nullable|exists:sellers,id',
             'vo_seller_id' => 'nullable|exists:sellers,id',
             'intermediate_seller_id' => 'nullable|exists:sellers,id',
@@ -79,7 +79,14 @@ class VehicleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $vehicle = Vehicle::findOrFail($id);
+
+        return view('admin.vehicles.form',  [
+            'sellers' => Seller::all(),
+            'origins' => EventOrigin::cases(),
+            'energies'  => EnergyType::cases(),
+            'vehicle' => $vehicle
+        ]);
     }
 
     /**
@@ -87,7 +94,32 @@ class VehicleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'brand' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'immatriculation' => 'required|string|max:20',
+            'vin' => 'required|string|max:50',
+            'version' => 'nullable|string|max:255',
+            'kilometrage' => 'nullable|integer|min:0',
+            'circulationDate' => 'nullable|date',
+            'purchaseDate' => 'nullable|date',
+            'eventDate' => 'nullable|date',
+            'lastEventDate' => 'nullable|date',
+            'energy' => 'nullable|string',
+            'saleType' => 'nullable|string',
+            'saleFileNumber' => 'nullable|string|max:255',
+            'eventOrigin' => 'nullable|string',
+            'vn_seller_id' => 'nullable|exists:sellers,id',
+            'vo_seller_id' => 'nullable|exists:sellers,id',
+            'intermediate_seller_id' => 'nullable|exists:sellers,id',
+        ]);
+
+        $vehicle = Vehicle::findOrFail($id);
+
+        $vehicle->update($validated);
+
+        return redirect()->route('admin.vehicles.index')->with('success', 'Véhicule modifié avec succès.');
+
     }
 
     /**

@@ -11,16 +11,17 @@
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <x-text-input :name="'brand'" label="Marque" :value="$vehicle->brand" />
-                <x-text-input :name="'model'" label="Modèle" :value="$vehicle->model" />
-                <x-text-input :name="'immatriculation'" label="Immatriculation" :value="$vehicle->immatriculation" />
-                <x-text-input :name="'vin'" label="VIN" :value="$vehicle->vin" />
-                <x-text-input :name="'version'" label="Version" :value="$vehicle->version" />
-                <x-text-input :name="'kilometrage'" type="number" label="Kilométrage" :value="$vehicle->kilometrage" />
-                <x-text-input :name="'circulationDate'" type="date" label="Date de circulation" :value="$vehicle->circulationDate" />
-                <x-text-input :name="'purchaseDate'" type="date" label="Date d'achat" :value="$vehicle->purchaseDate" />
-                <x-text-input :name="'eventDate'" type="date" label="Date d'évènement" :value="$vehicle->eventDate" />
-                <x-text-input :name="'lastEventDate'" type="date" label="Dernier évènement" :value="$vehicle->lastEventDate" />
+                <x-text-input :name="'immatriculation'" label="Immatriculation" :value="old('immatriculation', $vehicle->immatriculation)" />
+                <x-text-input :name="'vin'" label="VIN" :value="old('vin', $vehicle->vin)" />
+                <x-text-input :name="'brand'" label="Marque" :value="old('brand', $vehicle->brand)" />
+                <x-text-input :name="'model'" label="Modèle" :value="old('model', $vehicle->model)" />
+                <x-text-input :name="'version'" label="Version" :value="old('version', $vehicle->version)" />
+                <x-text-input :name="'kilometrage'" type="number" label="Kilométrage" :value="old('kilometrage', $vehicle->kilometrage)" />
+                <x-text-input :name="'circulationDate'" type="date" label="Date de circulation" :value="old('circulationDate', $vehicle->circulationDate)" />
+                <x-text-input :name="'purchaseDate'" type="date" label="Date d'achat" :value="old('purchaseDate', $vehicle->purchaseDate)" />
+                <x-text-input :name="'eventDate'" type="date" label="Date d'évènement" :value="old('eventDate', $vehicle->eventDate)" />
+                <x-text-input :name="'lastEventDate'" type="date" label="Dernier évènement" :value="old('lastEventDate', $vehicle->lastEventDate)" />
+
                 <x-select name="energy" label="Énergie">
                     @foreach ( $energies as $energy)
                         <option value="{{ $energy }}" {{ old('energy', $vehicle->energy) == $energy->value ? 'selected' : '' }}>{{ $energy->label() }}</option>
@@ -30,10 +31,10 @@
                         <option value="VO" {{ old('saleType', $vehicle->saleType) == 'VO' ? 'selected' : '' }}>VO</option>
                         <option value="VN" {{ old('saleType', $vehicle->saleType) == 'VN' ? 'selected' : '' }}>VN</option>
                 </x-select>
-                <x-text-input :name="'saleFileNumber'" label="Numéro de dossier" />
+                <x-text-input :name="'saleFileNumber'" label="Numéro de dossier" :value="old('saleFileNumber', $vehicle->saleFileNumber)" />
                 <x-select name="eventOrigin" label="Origine">
                     @foreach ( $origins as $origin)
-                        <option value="{{ $origin }}" {{ old('saleOrigin', $vehicle->saleOrigin) == $origin->value ? 'selected' : '' }}>{{ $origin->label() }}</option>
+                        <option value="{{ $origin }}" {{ old('eventOrigin', $vehicle->eventOrigin) == $origin->value ? 'selected' : '' }}>{{ $origin->label() }}</option>
                     @endforeach
                 </x-select>
             </div>
