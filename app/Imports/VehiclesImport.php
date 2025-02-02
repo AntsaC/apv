@@ -24,6 +24,7 @@ class VehiclesImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+
         $businessAccount = null;
         $eventAccount = null;
         $lastEventAccount = null;
@@ -113,8 +114,8 @@ class VehiclesImport implements ToModel, WithHeadingRow
             'saleType' => $row['type_vn_vo'],
             'saleFileNumber' => $row['numero_de_dossier_vn_vo'],
             'eventDate' => isset($row['date_evenement_veh']) ? Date::excelToDateTimeObject($row['date_evenement_veh'])->format('Y-m-d') : null,
-            'eventOrigin' => EventOrigin::ATELIER,
-            'invoiceComment' => null,
+            'eventOrigin' => EventOrigin::createFromLabel($row['origine_evenement_veh']),
+            'invoiceComment' => $row['commentaire_de_facturation_veh'],
             'vn_seller_id' => $vnSeller?->id,
             'vo_seller_id' => $voSeller?->id,
             'intermediate_seller_id' => $vnIntermediateSeller?->id,

@@ -135,15 +135,12 @@ class VehicleController extends Controller
 
     public function import(Request $request)
     {
-        // Validate the uploaded file
         $request->validate([
             'file' => 'required|file|mimes:xlsx,xls',
         ]);
 
-        // Import the Excel file
         Excel::import(new VehiclesImport, $request->file('file'));
 
-        // Return a response or redirect after import
-        return back()->with('success', 'All data has been successfully imported!');
+        return redirect()->route('admin.vehicles.index')->with('success', 'All data has been successfully imported!');
     }
 }

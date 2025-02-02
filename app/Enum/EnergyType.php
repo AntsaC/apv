@@ -8,13 +8,6 @@ enum EnergyType : string
     case PLUGIN = 'PLUG-IN';
     case FUEL = 'ESSENCE';
     case HYBRIDE = 'HYBRIDE';
+    case ELECTRIC = 'ELECTRIQUE';
 
-    public function label() : string {
-        return match($this) {
-            self::DIESEL => 'Diesel',
-            self::PLUGIN => 'Plugin',
-            self::FUEL  => 'Essence',
-            self::HYBRIDE   => 'Hybride'
-        };   
-    }
 }
