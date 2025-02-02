@@ -67,14 +67,6 @@ class VehicleController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
@@ -127,6 +119,10 @@ class VehicleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $vehicle = Vehicle::findOrFail($id);
+
+        $vehicle->delete();
+
+        return redirect()->route('admin.vehicles.index')->with('success', 'Le véhicules a été supprimé');
     }
 }
