@@ -1,6 +1,22 @@
 <x-admin.layout>
     <x-slot name="title">
-        {{ $customer->id ? 'Modifier le client' : 'Ajouter un Client'}}
+        @if ($customer->id)
+            <div class="flex">
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.customers.edit', $customer->id)" :active="request()->routeIs('admin.customers.edit', $customer->id)">
+                            {{ __('Formulaire') }}
+                        </x-nav-link>
+                    </div>        
+
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('admin.customers.vehicles', $customer->id)" :active="request()->routeIs('admin.customers.vehicles', $customer->id)">
+                            {{ __('Vehicules du client') }}
+                        </x-nav-link>
+                    </div>
+            </div>    
+        @else
+            Nouveau client
+        @endif
     </x-slot>
 
     <div class="max-w-3xl mx-auto mt-10">
