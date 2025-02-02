@@ -16,7 +16,7 @@ class CustomerController extends Controller
     public function index()
     {   
         return view('admin.customers.index', [
-            'customers' => Customer::all()
+            'customers' => Customer::orderBy('id', 'desc')->get()
         ]);
     }
 

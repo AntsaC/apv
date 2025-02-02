@@ -19,7 +19,7 @@ class VehicleController extends Controller
     public function index()
     {
         return view('admin.vehicles.index', [
-            'vehicles' => Vehicle::all()
+            'vehicles' => Vehicle::orderBy('id', 'desc')->get()
         ]);
     }
 
