@@ -26,8 +26,7 @@
             'brand' => 'Marque',
             'model' => 'Modèle',
             'kilometrage' => 'Kilometrage',
-            'lastEventDate' => 'Dernier évènement',
-            'eventOrigin' => 'Origine'
+            'lastEventDate' => 'Dernier évènement'
         ]" :data="$customer->vehicles" :model="'vehicles'" />
     </div>
 </x-admin.layout>

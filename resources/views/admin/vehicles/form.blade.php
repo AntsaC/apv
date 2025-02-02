@@ -24,7 +24,7 @@
 
                 <x-select name="energy" label="Énergie">
                     @foreach ( $energies as $energy)
-                        <option value="{{ $energy }}" {{ old('energy', $vehicle->energy) == $energy->value ? 'selected' : '' }}>{{ $energy->label() }}</option>
+                        <option value="{{ $energy }}" {{ old('energy', $vehicle->energy) == $energy->value ? 'selected' : '' }}>{{ $energy }}</option>
                     @endforeach
                 </x-select>
                 <x-select name="saleType" label="Type de vente">
