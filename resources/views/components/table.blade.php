@@ -1,6 +1,6 @@
 @props(['columns' => [], 'data' => []])
 
-<div class="overflow-x-auto bg-white shadow-lg rounded-lg p-4">
+<div class="mt-5 overflow-x-auto bg-white shadow-lg rounded-lg p-4">
     <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-100">
             <tr>

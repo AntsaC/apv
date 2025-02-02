@@ -7,6 +7,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Customer extends Model
 {
+    protected $fillable = [
+        'cardNumber',
+        'civility',
+        'firstName',
+        'lastName',
+        'address',
+        'additionnalAdress',
+        'city',
+        'homePhone',
+        'portablePhone',
+        'jobPhone',
+        'email',
+        'type',
+        'business_account_id',
+        'event_account_id',
+        'last_event_account_id',
+        'created_at',
+    ];
+
     public function businessAccount() : BelongsTo {
         return $this->belongsTo(Account::class);
     }
