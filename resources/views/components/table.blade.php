@@ -11,10 +11,11 @@
                         {{ $columnLabel }}
                     </th>
                 @endforeach
+                <th></th>
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-            @foreach ($data as $row)
+                @foreach ($data as $row)
                     <tr>
                         @foreach ($columns as $columnKey => $columnLabel)
                             @php
@@ -28,6 +29,15 @@
                                 {{ $value ?? '-' }}
                             </td>
                         @endforeach
+
+                        <td>
+                            <a href="{{ route('admin.customers.edit', $row->id) }}">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                            <a href="">
+                                <i class="fas fa-trash"></i> Supprimer
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
         </tbody>

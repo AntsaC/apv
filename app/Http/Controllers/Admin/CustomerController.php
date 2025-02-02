@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enum\CustomerType;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Customer;
@@ -24,8 +25,12 @@ class CustomerController extends Controller
      */
     public function create()
     {
+        $customer = new Customer();
+
         return view('admin.customers.form',  [
-            'accounts' => Account::all()
+            'accounts' => Account::all(),
+            'types' => CustomerType::cases(),
+            'customer' => $customer
         ]);
     }
 
@@ -68,7 +73,13 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $customer = Customer::findOrFail($id);
+
+        $accounts = Account::all();
+
+        $types = CustomerType::cases();
+    
+        return view('admin.customers.form', compact('customer', 'accounts', 'types'));    
     }
 
     /**
@@ -76,7 +87,28 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'cardNumber' => 'required|numeric',
+            'civility' => 'string',
+            'firstName' => 'nullable|string|max:50',
+            'lastName' => 'nullable|string|max:50',
+            'address' => 'nullable|string',
+            'additionnalAdress' => 'nullable|string',
+            'city' => 'required|string|max:100',
+            'homePhone' => 'nullable|string|max:20',
+            'portablePhone' => 'nullable|string|max:20',
+            'jobPhone' => 'nullable|string|max:20',
+            'email' => 'email',
+            'type' => 'required|string',
+            'business_account_id' => 'nullable|exists:accounts,id',
+        ]);
+
+        $customer = Customer::findOrFail($id);
+
+        $customer->update($validatedData);
+
+        return redirect()->route('admin.customers.index')->with('success', 'Client modifié avec succès.');
+
     }
 
     /**

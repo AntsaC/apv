@@ -19,7 +19,6 @@
                 'businessAccount.label' => 'Compte entreprise',
                 'eventAccount.label' => 'Compte événement',
                 'lastEventAccount.label' => 'Dernier compte événement',
-                'created_at' => 'Date de création',
             ]" :data="$customers" />
         </div>
     </div>
