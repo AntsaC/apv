@@ -15,4 +15,14 @@ enum EventOrigin : string
             self::USED  => 'Véhicule d\'occasion'
         };   
     }
+
+    public static function createFromLabel(?string $label): ?self
+    {
+        return match($label) {
+            'Atelier' => self::ATELIER,
+            'Véhicule neuf' => self::NEW,
+            'Véhicule d\'occasion' => self::USED,
+            default => null
+        };
+    }
 }

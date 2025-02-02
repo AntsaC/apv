@@ -4,17 +4,10 @@ namespace App\Enum;
 
 enum EnergyType : string
 {
-    case DIESEL = 'diesel';
-    case PLUGIN = 'plugin';
-    case FUEL = 'fuel';
-    case HYBRIDE = 'hybrid';
+    case DIESEL = 'DIESEL';
+    case PLUGIN = 'PLUG-IN';
+    case FUEL = 'ESSENCE';
+    case HYBRIDE = 'HYBRIDE';
+    case ELECTRIC = 'ELECTRIQUE';
 
-    public function label() : string {
-        return match($this) {
-            self::DIESEL => 'Diesel',
-            self::PLUGIN => 'Plugin',
-            self::FUEL  => 'Essence',
-            self::HYBRIDE   => 'Hybride'
-        };   
-    }
 }

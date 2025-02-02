@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Enum\EnergyType;
 use App\Enum\EventOrigin;
 use App\Http\Controllers\Controller;
+use App\Imports\VehiclesImport;
 use App\Models\Seller;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VehicleController extends Controller
 {
@@ -124,5 +126,21 @@ class VehicleController extends Controller
         $vehicle->delete();
 
         return redirect()->route('admin.vehicles.index')->with('success', 'Le véhicules a été supprimé');
+    }
+
+    public function showImportForm()
+    {
+        return view('admin.vehicles.import');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls',
+        ]);
+
+        Excel::import(new VehiclesImport, $request->file('file'));
+
+        return redirect()->route('admin.vehicles.index')->with('success', 'All data has been successfully imported!');
     }
 }
