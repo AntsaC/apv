@@ -34,7 +34,7 @@ class VehicleFactory extends Factory
             'saleType' => fake()->randomElement(['VN', 'VO']),
             'saleFileNumber' => fake()->optional()->numerify('FILE-####'),
             'eventDate' => fake()->optional()->dateTimeBetween('-1 year', 'now'),
-            'eventOrigin' => fake()->optional()->randomElement(['Purchase', 'Trade-in', 'Auction', 'Direct']),
+            'eventOrigin' => null,
             'invoiceComment' => fake()->optional()->sentence(),
         ];
     }

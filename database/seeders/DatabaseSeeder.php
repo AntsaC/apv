@@ -18,10 +18,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Create test user
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
 
         // Create sellers
         $sellers = Seller::factory(5)->create();

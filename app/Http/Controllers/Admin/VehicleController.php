@@ -7,20 +7,28 @@ use App\Enum\EventOrigin;
 use App\Http\Controllers\Controller;
 use App\Imports\VehiclesImport;
 use App\Models\Seller;
-use App\Models\Vehicle;
+use App\Services\VehicleService;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class VehicleController extends Controller
 {
+    protected $vehicleService;
+
+    public function __construct(VehicleService $vehicleService)
+    {
+        $this->vehicleService = $vehicleService;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.vehicles.index', [
-            'vehicles' => Vehicle::orderBy('id', 'desc')->get()
-        ]);
+        $search = $request->input('search');
+        $vehicles = $this->vehicleService->getPaginatedVehicles($search);
+
+        return view('admin.vehicles.index', compact('vehicles', 'search'));
     }
 
     /**
@@ -62,9 +70,9 @@ class VehicleController extends Controller
             'vo_seller_id' => 'nullable|exists:sellers,id',
             'intermediate_seller_id' => 'nullable|exists:sellers,id',
         ]);
-    
-        $vehicle = Vehicle::create($validated);
-    
+
+        $this->vehicleService->createVehicle($validated);
+
         return redirect()->route('admin.vehicles.index')->with('success', 'Véhicule ajouté avec succès.');
     }
 
@@ -73,9 +81,9 @@ class VehicleController extends Controller
      */
     public function edit(string $id)
     {
-        $vehicle = Vehicle::findOrFail($id);
+        $vehicle = $this->vehicleService->findVehicle($id);
 
-        return view('admin.vehicles.form',  [
+        return view('admin.vehicles.form', [
             'sellers' => Seller::all(),
             'origins' => EventOrigin::cases(),
             'energies'  => EnergyType::cases(),
@@ -108,12 +116,9 @@ class VehicleController extends Controller
             'intermediate_seller_id' => 'nullable|exists:sellers,id',
         ]);
 
-        $vehicle = Vehicle::findOrFail($id);
-
-        $vehicle->update($validated);
+        $this->vehicleService->updateVehicle($id, $validated);
 
         return redirect()->route('admin.vehicles.index')->with('success', 'Véhicule modifié avec succès.');
-
     }
 
     /**
@@ -121,11 +126,9 @@ class VehicleController extends Controller
      */
     public function destroy(string $id)
     {
-        $vehicle = Vehicle::findOrFail($id);
+        $this->vehicleService->deleteVehicle($id);
 
-        $vehicle->delete();
-
-        return redirect()->route('admin.vehicles.index')->with('success', 'Le véhicules a été supprimé');
+        return redirect()->route('admin.vehicles.index')->with('success', 'Le véhicule a été supprimé');
     }
 
     public function showImportForm()

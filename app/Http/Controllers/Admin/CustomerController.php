@@ -5,19 +5,27 @@ namespace App\Http\Controllers\Admin;
 use App\Enum\CustomerType;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
-use App\Models\Customer;
+use App\Services\CustomerService;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    protected $customerService;
+
+    public function __construct(CustomerService $customerService)
+    {
+        $this->customerService = $customerService;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {   
-        return view('admin.customers.index', [
-            'customers' => Customer::orderBy('id', 'desc')->get()
-        ]);
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+        $customers = $this->customerService->getPaginatedCustomers($search);
+
+        return view('admin.customers.index', compact('customers', 'search'));
     }
 
     /**
@@ -57,9 +65,9 @@ class CustomerController extends Controller
             'last_event_account_id' => 'nullable|exists:accounts,id',
             'customer_id'   => 'nullable|exists:customers,id'
         ]);
-    
-        Customer::create($validatedData);
-    
+
+        $this->customerService->createCustomer($validatedData);
+
         return redirect()->route('admin.customers.index')->with('success', 'Client ajouté avec succès.');
     }
 
@@ -76,13 +84,11 @@ class CustomerController extends Controller
      */
     public function edit(string $id)
     {
-        $customer = Customer::findOrFail($id);
-
+        $customer = $this->customerService->findCustomer($id);
         $accounts = Account::all();
-
         $types = CustomerType::cases();
-    
-        return view('admin.customers.form', compact('customer', 'accounts', 'types'));    
+
+        return view('admin.customers.form', compact('customer', 'accounts', 'types'));
     }
 
     /**
@@ -109,12 +115,9 @@ class CustomerController extends Controller
             'customer_id'   => 'nullable|exists:customers,id'
         ]);
 
-        $customer = Customer::findOrFail($id);
-
-        $customer->update($validatedData);
+        $this->customerService->updateCustomer($id, $validatedData);
 
         return redirect()->route('admin.customers.index')->with('success', 'Client modifié avec succès.');
-
     }
 
     /**
@@ -122,19 +125,15 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        $customer = Customer::findOrFail($id);
+        $this->customerService->deleteCustomer($id);
 
-        $customer->delete();
-
-        return redirect()->route('admin.customers.index')->with('success', 'Customer deleted successfully.');
+        return redirect()->route('admin.customers.index')->with('success', 'Client supprimé avec succès.');
     }
 
     public function vehicles(string $id)
     {
-        $customer = Customer::findOrFail($id);
+        $customer = $this->customerService->findCustomer($id);
 
-        return view('admin.customers.vehicles', [
-            'customer' => $customer
-        ]);
+        return view('admin.customers.vehicles', compact('customer'));
     }
 }

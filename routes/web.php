@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('customers', CustomerController::class);
 
     Route::resource('vehicles', VehicleController::class);
+
+    Route::resource('services', ServiceController::class);
 
     Route::get('customers/{id}/vehicles', [CustomerController::class, 'vehicles'])->name('customers.vehicles');
 
